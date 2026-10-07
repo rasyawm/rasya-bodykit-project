@@ -108,20 +108,79 @@ main { position: relative; }
   text-transform: uppercase;
   border: 0;
   cursor: pointer;
-}   
+}
 .btn-red { background: var(--red); color: var(--white); }
 .btn-red:hover { background: #e01f2e; }
 .btn-gray { background: var(--gray); color: var(--white); }
 .btn-gray:hover { background: #929294; }
 .btn svg { width: 1.4rem; height: 1.4rem; }
 
-/* Aturan khusus layar kecil (HP) */
-@media (max-width: 760px) {
-  .hero { align-items: flex-start; }
-  .hero-photo img { opacity: .55; }
-}
-
 /* Aside & footer: bagian di bawah hero */
 aside { background: #151516; border-top: 2px solid var(--red); padding: 1.25rem clamp(1rem, 4vw, 3rem); font-size: .85rem; }
 footer { background: #000; color: #9a9a9c; padding: 1rem clamp(1rem, 4vw, 3rem); font-size: .75rem; }
 footer p, aside p { margin: 0; }
+
+
+/* ===== RESPONSIF: biarkan tiga blok ini di paling bawah, urutannya jangan ditukar ===== */
+
+/* Aturan khusus tablet (iPad) dan HP: lebar 1024px ke bawah.
+   Teks rata tengah di atas, foto mobil utuh di bawahnya. */
+@media (max-width: 1024px) {
+  header { justify-content: center; padding: .75rem 1rem; }
+  nav ul { justify-content: center; }
+
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-image: none;
+  }
+
+  .hero-text {
+    max-width: 100%;
+    padding: 8rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  .hero-text h1 { font-size: clamp(1.7rem, 6vw, 2.8rem); }
+  .hero-text p { max-width: 34rem; margin: 0 auto 1.5rem; font-size: .85rem; }
+  .actions { justify-content: center; }
+
+  /* foto pindah ke bawah teks, ujung atasnya memudar ke latar gelap */
+  .hero-photo {
+    position: relative;
+    top: auto; left: auto; right: auto; bottom: auto;
+    z-index: 1;
+    width: 100%;
+    margin-top: auto;
+    aspect-ratio: 4 / 3;
+    background-image: url("images/backgroundrasyabodykit.png");
+    background-size: cover;
+    background-position: 85% bottom;
+    background-repeat: no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
+  }
+  .hero-photo img { display: none; }
+}
+
+/* Aturan khusus layar kecil (HP): lebar 600px ke bawah */
+@media (max-width: 600px) {
+  .logo { font-size: 1.3rem; }
+  nav ul { gap: .25rem 1rem; font-size: .7rem; }
+  nav a.nav-cta { padding: .45rem 1rem; }
+
+  .hero-text { padding: 7rem 1.25rem 1rem; }
+  .hero-text h1 { font-size: clamp(1.6rem, 7.5vw, 2.2rem); }
+  .hero-text p { font-size: .8rem; }
+  .actions { gap: .75rem; }
+  .btn { padding: .85rem 1.5rem; font-size: .85rem; }
+
+  .hero-photo { aspect-ratio: 1 / 1; background-position: 90% bottom; }
+}
+
+/* Aturan khusus HP kecil: lebar 400px ke bawah */
+@media (max-width: 400px) {
+  nav ul { font-size: .65rem; gap: .25rem .75rem; }
+  .hero-text h1 { font-size: 1.5rem; }
+  .btn { padding: .8rem 1.25rem; font-size: .8rem; }
+}
