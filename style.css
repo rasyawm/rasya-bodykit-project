@@ -121,66 +121,107 @@ footer { background: #000; color: #9a9a9c; padding: 1rem clamp(1rem, 4vw, 3rem);
 footer p, aside p { margin: 0; }
 
 
-/* ===== RESPONSIF: biarkan tiga blok ini di paling bawah, urutannya jangan ditukar ===== */
+/* ===== RESPONSIF: biarkan tiga blok ini di paling bawah, urutannya jangan ditukar =====
 
-/* Aturan khusus tablet (iPad) dan HP: lebar 1024px ke bawah.
-   Teks rata tengah di atas, foto mobil utuh di bawahnya. */
-@media (max-width: 1024px) {
-  header { justify-content: center; padding: .75rem 1rem; }
-  nav ul { justify-content: center; }
+   Foto asli lebar (mobil ada di sisi kanan, sisi kiri kosong untuk teks desktop).
+   Di tablet & HP foto dipotong ke area mobil saja lewat dua pengaturan:
+   --photo-ratio : bentuk kotak foto (lebar / tinggi). Makin besar = mobil makin kecil.
+   --car-x       : geser potongan ke kiri/kanan (0% = kiri foto, 100% = kanan foto).
+   Foto selalu menempel di sisi kanan layar (--car-x: 100%) supaya tidak ada celah hitam.
+   Makin kecil --photo-ratio, mobil makin besar dan makin bergeser ke kiri (ke tengah).
+   Kalau mobil kurang tengah, ubah --photo-ratio sedikit demi sedikit (selisih 0.05). Kalau kurang kecil/besar, ubah --photo-ratio. */
+
+/* Tablet (termasuk iPad Pro 13") dan HP: lebar sampai 1100px ATAU layar tegak.
+   Tidak ada position: absolute pada foto; foto mengikuti lebar layar sehingga tidak bisa keluar viewport. */
+@media (max-width: 1100px), (orientation: portrait) {
+  :root { --photo-ratio: 1.2; --car-x: 100%; }
+
+  html, body { overflow-x: hidden; }
+
+  header { padding: 1.25rem 2rem; }
+  .logo { font-size: 2.2rem; }
+  .logo span { font-size: .8rem; }
+  nav ul { gap: .5rem 1.75rem; font-size: 1.05rem; }
+  nav a.nav-cta { padding: .75rem 1.9rem; }
 
   .hero {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     background-image: none;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
+  /* Teks: rata tengah horizontal, dan berada di tengah ruang antara navbar dan mobil */
   .hero-text {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     max-width: 100%;
-    padding: 8rem 1.5rem 1.5rem;
+    padding: 8.5rem 2rem 2rem;
     text-align: center;
   }
-  .hero-text h1 { font-size: clamp(1.7rem, 6vw, 2.8rem); }
-  .hero-text p { max-width: 34rem; margin: 0 auto 1.5rem; font-size: .85rem; }
-  .actions { justify-content: center; }
+  .hero-text h1 { margin-bottom: 1.5rem; font-size: clamp(2.4rem, 7.5vw, 4.4rem); }
+  .hero-text p {
+    max-width: 40rem;
+    margin: 0 auto 2.25rem;
+    font-size: clamp(1rem, 2.4vw, 1.3rem);
+  }
+  .actions { justify-content: center; gap: 1.25rem; }
+  .btn { padding: 1.05rem 2.4rem; font-size: 1.05rem; }
+  .btn svg { width: 1.5rem; height: 1.5rem; }
 
-  /* foto pindah ke bawah teks, ujung atasnya memudar ke latar gelap */
+  /* Foto: di bawah teks, lebar penuh, tinggi mengikuti rasio. Ujung atas memudar ke latar gelap. */
   .hero-photo {
     position: relative;
     top: auto; left: auto; right: auto; bottom: auto;
     z-index: 1;
+    flex: 0 0 auto;
     width: 100%;
-    margin-top: auto;
-    aspect-ratio: 4 / 3;
-    background-image: url("images/backgroundrasyabodykit.png");
-    background-size: cover;
-    background-position: 85% bottom;
-    background-repeat: no-repeat;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
   }
-  .hero-photo img { display: none; }
+  .hero-photo img {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--photo-ratio);
+    object-fit: cover;
+    object-position: var(--car-x) bottom;
+  }
+
+  /* Tablet/HP posisi mendatar: kotak foto lebih lebar supaya tidak lebih tinggi dari layar */
+  @media (orientation: landscape) {
+    :root { --photo-ratio: 1.5; }
+  }
 }
 
-/* Aturan khusus layar kecil (HP): lebar 600px ke bawah */
+/* HP: lebar 600px ke bawah. Logo dan menu ditumpuk di tengah, mobil sedikit lebih kecil. */
 @media (max-width: 600px) {
-  .logo { font-size: 1.3rem; }
-  nav ul { gap: .25rem 1rem; font-size: .7rem; }
-  nav a.nav-cta { padding: .45rem 1rem; }
+  :root { --photo-ratio: 1.1; --car-x: 100%; }
 
-  .hero-text { padding: 7rem 1.25rem 1rem; }
-  .hero-text h1 { font-size: clamp(1.6rem, 7.5vw, 2.2rem); }
-  .hero-text p { font-size: .8rem; }
+  header { justify-content: center; padding: .75rem 1rem; }
+  .logo { font-size: 1.4rem; }
+  .logo span { font-size: .6rem; }
+  nav ul { justify-content: center; gap: .25rem 1rem; font-size: .75rem; }
+  nav a.nav-cta { padding: .5rem 1.1rem; }
+
+  .hero-text { padding: 7rem 1.25rem 1.5rem; }
+  .hero-text h1 { margin-bottom: 1rem; font-size: clamp(1.6rem, 7.6vw, 2.3rem); }
+  .hero-text p { margin-bottom: 1.5rem; font-size: .85rem; }
   .actions { gap: .75rem; }
   .btn { padding: .85rem 1.5rem; font-size: .85rem; }
-
-  .hero-photo { aspect-ratio: 1 / 1; background-position: 90% bottom; }
+  .btn svg { width: 1.3rem; height: 1.3rem; }
 }
 
-/* Aturan khusus HP kecil: lebar 400px ke bawah */
+/* HP kecil: lebar 400px ke bawah (sampai 320px) */
 @media (max-width: 400px) {
-  nav ul { font-size: .65rem; gap: .25rem .75rem; }
-  .hero-text h1 { font-size: 1.5rem; }
-  .btn { padding: .8rem 1.25rem; font-size: .8rem; }
+  nav ul { font-size: .68rem; gap: .25rem .75rem; }
+  .hero-text { padding-left: 1rem; padding-right: 1rem; }
+  .hero-text h1 { font-size: clamp(1.45rem, 7.4vw, 1.7rem); }
+  .btn { padding: .75rem 1.15rem; font-size: .8rem; }
 }
