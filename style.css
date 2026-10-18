@@ -121,6 +121,135 @@ footer { background: #000; color: #9a9a9c; padding: 1rem clamp(1rem, 4vw, 3rem);
 footer p, aside p { margin: 0; }
 
 
+/* ===== LAYANAN: daftar layanan (gambar di kiri, teks di kanan) ===== */
+.layanan {
+  background: linear-gradient(100deg, #050505 0%, #111112 45%, #434344 100%);
+  padding: clamp(4.5rem, 8vw, 6.5rem) clamp(1rem, 4vw, 3rem) clamp(2.5rem, 5vw, 4rem);
+}
+.layanan-inner { max-width: 72rem; margin: 0 auto; }
+.layanan-head { margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.layanan h2 {
+  margin: 0 0 .75rem;
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+  line-height: 1.1;
+  text-transform: none;
+}
+.layanan-head p { margin: 0; max-width: 28rem; font-size: clamp(.8rem, 1.6vw, .95rem); line-height: 1.6; }
+
+.layanan-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2.5vw, 1.5rem) 3rem;
+}
+.layanan-item { display: flex; align-items: flex-start; gap: clamp(.75rem, 2vw, 1.1rem); }
+.layanan-item figure {
+  flex: 0 0 clamp(8rem, 28%, 12rem);
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  background: #1b1b1c;   /* tampil kalau foto belum ada */
+  overflow: hidden;
+}
+.layanan-item img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.layanan-body { min-width: 0; }
+.layanan-item h3 { margin: 0 0 .4rem; font-size: clamp(1.05rem, 2.4vw, 1.35rem); line-height: 1.2; text-transform: none; }
+.layanan-item h3 .no { color: var(--red); margin-right: .3rem; }
+.layanan-item p { margin: 0; font-size: clamp(.68rem, 1.4vw, .78rem); line-height: 1.55; color: #e6e6e6; }
+
+/* Tablet ke atas: deskripsi rata kiri-kanan seperti contoh */
+@media (min-width: 768px) {
+  .layanan-item p { text-align: justify; }
+}
+/* Layar lebar: dua kolom supaya enam layanan tidak terlalu panjang */
+@media (min-width: 1100px) {
+  .layanan-list { grid-template-columns: 1fr 1fr; }
+}
+/* HP: gambar di atas selebar kartu, teks di bawahnya */
+@media (max-width: 520px) {
+  .layanan-item { flex-direction: column; gap: .75rem; }
+  .layanan-item figure { flex: none; width: 100%; aspect-ratio: 16 / 9; }
+}
+
+
+/* ===== TENTANG KAMI: teks di kiri, foto di kanan (di HP foto di atas) ===== */
+.tentang {
+  background: linear-gradient(260deg, #050505 0%, #111112 45%, #434344 100%);
+  padding: clamp(4rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem);
+}
+.tentang-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+.tentang h2 { margin: 0 0 1rem; font-size: clamp(2.5rem, 6.5vw, 4.5rem); line-height: 1.1; text-transform: none; }
+.tentang-teks p {
+  margin: 0 0 1rem;
+  max-width: 38rem;
+  font-size: clamp(.85rem, 1.6vw, 1rem);
+  line-height: 1.75;
+  color: #e6e6e6;
+  text-transform: none;
+}
+.tentang-teks .tentang-lead { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 600; color: var(--white); }
+.tentang-poin { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1rem; }
+.tentang-poin li { border-left: 3px solid var(--red); padding-left: 1rem; }
+.tentang-poin h3 { margin: 0 0 .25rem; font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.3; text-transform: none; }
+.tentang-poin p { margin: 0; font-size: clamp(.8rem, 1.5vw, .9rem); line-height: 1.6; }
+.tentang-foto {
+  order: -1;            /* HP: foto di atas teks */
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  background: #1b1b1c;  /* tampil kalau foto belum ada */
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.tentang-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Layar lebar: dua kolom, foto di kanan */
+@media (min-width: 900px) {
+  .tentang-inner { grid-template-columns: 1.1fr .9fr; }
+  .tentang-foto { order: 0; }
+}
+
+footer { border-top: 2px solid var(--red); }
+/* KONTAK: WhatsApp, alamat bengkel, dan saluran testimoni */
+.kontak {
+  background: #151516;
+  border-top: 2px solid var(--red);
+  padding: clamp(3rem, 7vw, 5rem) clamp(1rem, 4vw, 3rem);
+}
+.kontak-inner { max-width: 72rem; margin: 0 auto; }
+.kontak-head { margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.kontak h2 { margin: 0 0 .75rem; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; text-transform: none; }
+.kontak-head p { margin: 0; max-width: 34rem; font-size: clamp(.8rem, 1.6vw, .95rem); line-height: 1.6; }
+
+.kontak-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.kontak-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .9rem;
+  background: var(--bg);
+  border: 1px solid #2a2a2c;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+.kontak-card h3 { margin: 0; font-size: 1.15rem; line-height: 1.2; text-transform: none; }
+.kontak-card p, .kontak-card address { margin: 0; font-style: normal; font-size: .8rem; line-height: 1.7; color: #e6e6e6; }
+.kontak-card .kontak-nomor { font-size: 1.4rem; font-weight: 700; color: var(--white); }
+.kontak-card .btn { margin-top: auto; }
+
+/* Layar lebar: tiga kartu berjajar */
+@media (min-width: 900px) {
+  .kontak-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+
 /* ===== RESPONSIF: biarkan tiga blok ini di paling bawah, urutannya jangan ditukar =====
 
    Foto asli lebar (mobil ada di sisi kanan, sisi kiri kosong untuk teks desktop).
@@ -134,7 +263,7 @@ footer p, aside p { margin: 0; }
 /* Tablet (termasuk iPad Pro 13") dan HP: lebar sampai 1100px ATAU layar tegak.
    Tidak ada position: absolute pada foto; foto mengikuti lebar layar sehingga tidak bisa keluar viewport. */
 @media (max-width: 1100px), (orientation: portrait) {
-  :root { --photo-ratio: 1.2; --car-x: 100%; }
+  :root { --photo-ratio: 1.2; --car-x: 100%; --atmos: 365%; }
 
   html, body { overflow-x: hidden; }
 
@@ -153,13 +282,32 @@ footer p, aside p { margin: 0; }
     min-height: 100svh;
   }
 
-  /* Teks: rata tengah horizontal, dan berada di tengah ruang antara navbar dan mobil */
+  /* Latar atas: bagian atas foto yang sama (asap abu-abu dan garis merah) dibentangkan dari atas layar
+     sampai bertemu foto mobil, sehingga tidak ada bagian hitam di tengah.
+     Atap mobil di foto mulai sekitar 33% dari atas foto, jadi di layar mulai sekitar 0.33 x --atmos dari tinggi hero
+     (190% -> 63%). Latar ini harus sudah memudar habis sebelum titik itu (sekarang habis di 57%).
+     Kalau --atmos diubah, ubah juga angka 57% dan 38% di dua baris mask-image di bawah. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(11, 11, 12, .35), rgba(11, 11, 12, .35)), url("images/backgroundrasyabodykit.png");
+    background-size: auto, auto var(--atmos);
+    background-position: 0 0, 98% top;
+    background-repeat: no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+  }
+
+  /* Teks: rata tengah horizontal, dan menempel tepat di atas mobil */
   .hero-text {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     max-width: 100%;
     padding: 8.5rem 2rem 2rem;
     text-align: center;
@@ -181,8 +329,9 @@ footer p, aside p { margin: 0; }
     z-index: 1;
     flex: 0 0 auto;
     width: 100%;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+    margin-top: -2rem;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 58%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 58%);
   }
   .hero-photo img {
     position: static;
