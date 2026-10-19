@@ -263,7 +263,7 @@ footer { border-top: 2px solid var(--red); }
 /* Tablet (termasuk iPad Pro 13") dan HP: lebar sampai 1100px ATAU layar tegak.
    Tidak ada position: absolute pada foto; foto mengikuti lebar layar sehingga tidak bisa keluar viewport. */
 @media (max-width: 1100px), (orientation: portrait) {
-  :root { --photo-ratio: 1.2; --car-x: 100%; --atmos: 365%; }
+  :root { --photo-ratio: 1.05; --car-x: 100%; --atmos: 365%; }
 
   html, body { overflow-x: hidden; }
 
@@ -351,7 +351,7 @@ footer { border-top: 2px solid var(--red); }
 
 /* HP: lebar 600px ke bawah. Logo dan menu ditumpuk di tengah, mobil sedikit lebih kecil. */
 @media (max-width: 600px) {
-  :root { --photo-ratio: 1.1; --car-x: 100%; }
+  :root { --photo-ratio: 1.05; --car-x: 100%; }
 
   header { justify-content: center; padding: .75rem 1rem; }
   .logo { font-size: 1.4rem; }
